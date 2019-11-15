@@ -46,6 +46,10 @@ class Candy extends CoffeeProduct {
         this.caloriesPerCandy = caloriesPerCandy;
     }
     
+    @Override
+    public String toString(){
+        return super.toString()+"\t"+this.noOfCandy+" candy per package ("+this.caloriesPerCandy+" calories each)";
+    }
     public int getNoOfCandy() {
         return noOfCandy;
     }
@@ -74,6 +78,10 @@ class Powder extends CoffeeProduct{
         this.weight = weight;
     }
 
+    @Override
+    public String toString(){
+        return super.toString()+"\t"+this.weight+"g";
+    }
     public int getWeight() {
         return weight;
     }
