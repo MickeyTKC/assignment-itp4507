@@ -19,20 +19,6 @@ public class CoffeeShop {
     public String getTitle() {
         return this.title;
     }
-
-    public List<CoffeeProduct> getAllProducts() {
-        return this.products;
-    }
-
-    public CoffeeProduct getProductByID(int productID) {
-        for (CoffeeProduct p : products) {
-            if (p.getProductID() == productID) {
-                return p;
-            }
-        }
-        return null;
-    }
-
     public void addPorduct(CoffeeProduct p) {
         if(this.getProductByID(p.getProductID())!=null){
             System.out.println("Product "+p.getProductID()+" is exist already");
@@ -41,7 +27,25 @@ public class CoffeeShop {
             this.products.add(p);
         }
     }
-    
+    public List<CoffeeProduct> getAllProducts() {
+        return this.products;
+    }
+    public CoffeeProduct getProductByID(int productID) {
+        for (CoffeeProduct p : products) {
+            if (p.getProductID() == productID) {
+                return p;
+            }
+        }
+        return null;
+    }
+    public void collectProduct(int productID,int qty){
+        CoffeeProduct p =  getProductByID(productID);
+        p.setQty(p.getProductID()+qty);
+    }
+    public void shipProduct(int productID,int qty){
+        CoffeeProduct p =  getProductByID(productID);
+        p.setQty(p.getProductID()-qty);
+    }
     public CoffeeShop clone(){
         CoffeeShop temp = new CoffeeShop(this.title);
         for(CoffeeProduct p : this.getAllProducts()){
