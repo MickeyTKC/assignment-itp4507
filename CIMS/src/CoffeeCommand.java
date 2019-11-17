@@ -69,7 +69,7 @@ class CommandCollectProduct implements CoffeeCommand {
         try {
             CoffeeProduct p = c.getProductByID(Integer.valueOf(input));
             System.out.println("Quantity to deposit:");
-            p.setQty(Integer.valueOf(sc.next()));
+            p.setQty(p.getQty()+Integer.valueOf(sc.next()));
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
@@ -93,7 +93,7 @@ class CommandShipProduct implements CoffeeCommand {
         try {
             CoffeeProduct p = c.getProductByID(Integer.valueOf(input));
             System.out.println("Quantity to ship:");
-            p.setQty(Integer.valueOf(sc.next()) * -1);
+            p.setQty(p.getQty()-Integer.valueOf(sc.next()));
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
