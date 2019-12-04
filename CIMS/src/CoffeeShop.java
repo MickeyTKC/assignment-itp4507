@@ -38,6 +38,9 @@ public class CoffeeShop {
         }
         return null;
     }
+    public void setProducts(List<CoffeeProduct> product){
+        this.products = product;
+    }
     public void collectProduct(int productID,int qty){
         CoffeeProduct p =  getProductByID(productID);
         p.setQty(p.getProductID()+qty);
@@ -52,5 +55,16 @@ public class CoffeeShop {
             temp.addPorduct(p.clone());
         }
         return temp;
+    }
+}
+
+class Memento {
+    private CoffeeShop cs;
+    private List<CoffeeProduct> p;
+    public Memento(CoffeeShop cs) {
+       this.p = cs.clone().getAllProducts();
+    }
+    public void restore() {
+        cs.setProducts(p);
     }
 }
