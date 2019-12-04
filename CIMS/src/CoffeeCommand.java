@@ -132,7 +132,7 @@ class CommandUndo implements CoffeeCommand{
     }
     public void execute(){
         if(r.undo()){
-            System.out.println("Perform undo");
+            System.out.println("undo completed.");
         }
         else{
             System.out.println("Nothing to undo.");
@@ -149,7 +149,7 @@ class CommandRedo implements CoffeeCommand{
     }
     public void execute(){
         if(r.redo()){
-            System.out.println("Perform redo");
+            System.out.println("redo completed.");
         }
         else{
             System.out.println("Nothing to redo.");
@@ -170,15 +170,8 @@ class CommandURList implements CoffeeCommand{
 }
 
 class CommandExit implements CoffeeCommand{
-    private Scanner sc;
-    public CommandExit(Scanner sc){
-        this.sc = sc;
-    }
     public void execute(){
-        System.out.println("Exit System ? (Y/N)");
-        String input = sc.next();
-        if(input.toUpperCase().equals("Y")){
-            System.exit(1);
-        }
+        System.out.println("Thanks for using Coffee Inventory Management System!!");
+        System.exit(1);
     }
 }

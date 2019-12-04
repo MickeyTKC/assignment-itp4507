@@ -15,7 +15,7 @@ public class Assignment {
             new UndoFactory("u", sc, record),
             new RedoFactory("r", sc, record),
             new URListFactory("sl", sc, record),
-            new ExitFactory("x", sc),};
+            new ExitFactory("x"),};
         record.save(shop, "Create Coffee Shop");
         while (true) {
             System.out.println(shop.getTitle());

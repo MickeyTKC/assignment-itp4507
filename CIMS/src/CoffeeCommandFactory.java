@@ -131,13 +131,11 @@ class URListFactory implements CoffeeCommandFactory{
 
 class ExitFactory implements CoffeeCommandFactory{
     private String name;
-    private Scanner sc;
-    public ExitFactory(String name,Scanner sc){
+    public ExitFactory(String name){
         this.name = name;
-        this.sc = sc;
     }
     public CoffeeCommand create(){
-        return new CommandExit(sc);
+        return new CommandExit();
     }
     public String name(){
         return name;
