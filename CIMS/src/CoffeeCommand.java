@@ -26,7 +26,7 @@ class CommandAddProduct implements CoffeeCommand {
             System.out.println("Enter Coffee type (cc=Coffee Candy/cp=Coffee Powder):");
             String choice = sc.next();
             for (CoffeeProductFactory f : cpf) {
-                if (f.getFactoryKey().equals(choice)) {
+                if (f.name().equals(choice)) {
                     CoffeeProduct p = f.createProduct(sc);
                     c.addPorduct(p);
                     r.save(c, "Add: "+p.toString());

@@ -2,12 +2,12 @@
 import java.util.Scanner;
 
 public interface CoffeeProductFactory {
-    public String getFactoryKey();
+    public String name();
     public CoffeeProduct createProduct(Scanner sc);
 }
 
 class CandyFactory implements CoffeeProductFactory {
-    private final String key = "cc";
+    private final String name = "cc";
     public CoffeeProduct createProduct(Scanner sc) {
         String[] values;
         System.out.println("Enter product Id, name, number of candy and calories per candy:");
@@ -30,13 +30,13 @@ class CandyFactory implements CoffeeProductFactory {
         }
         return null;
     }
-    public String getFactoryKey() {
-        return this.key;
+    public String name() {
+        return this.name;
     }
 }
 
 class PowderFactory implements CoffeeProductFactory {
-    private final String key = "cp";
+    private final String name = "cp";
     public CoffeeProduct createProduct(Scanner sc) {
         String[] values;
         System.out.println("Enter product Id , name and weight(g):");
@@ -58,7 +58,7 @@ class PowderFactory implements CoffeeProductFactory {
         }
         return null;
     }
-    public String getFactoryKey() {
-        return this.key;
+    public String name() {
+        return this.name;
     }
 }
