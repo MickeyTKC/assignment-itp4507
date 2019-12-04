@@ -2,16 +2,23 @@
 import java.util.*;
 
 public interface CoffeeCommand {
-    public abstract String getKey();
-    public abstract void execute(Scanner sc, CoffeeShop c);
+    public String name();
+    public abstract void execute();
 }
 
 class CommandAddProduct implements CoffeeCommand {
-    private String key="a";
-    public String getKey(){
-        return this.key;
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandAddProduct(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
     }
-    public void execute(Scanner sc, CoffeeShop c) {
+    public String name(){
+        return this.name;
+    }
+    public void execute() {
         try{
             CoffeeProductFactory[] cpf = {new CandyFactory(), new PowderFactory()};
             System.out.println("Enter Coffee type (cc=Coffee Candy/cp=Coffee Powder):");
@@ -23,7 +30,7 @@ class CommandAddProduct implements CoffeeCommand {
                 }
             }
             System.out.println("Please input a valid values");
-            execute(sc, c);
+            execute();
         }
         catch(Exception e){
             
@@ -32,11 +39,18 @@ class CommandAddProduct implements CoffeeCommand {
 }
 
 class CommandViewProduct implements CoffeeCommand {
-    private String key="v";
-    public String getKey(){
-        return this.key;
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandViewProduct(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
     }
-    public void execute(Scanner sc, CoffeeShop c) {
+    public String name(){
+        return this.name;
+    }
+    public void execute() {
         System.out.println("Enter product Id. (* to show all):");
         String input = sc.next();
         List<CoffeeProduct> list = c.getAllProducts();
@@ -52,17 +66,24 @@ class CommandViewProduct implements CoffeeCommand {
                 }
             }
             System.out.println("Please input a valid Product ID");
-            execute(sc, c);
+            execute();
         }
     }
 }
 
 class CommandCollectProduct implements CoffeeCommand {
-    private String key="c";
-    public String getKey(){
-        return this.key;
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandCollectProduct(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
     }
-    public void execute(Scanner sc, CoffeeShop c) {
+    public String name(){
+        return this.name;
+    }
+    public void execute() {
         System.out.println("Enter Product ID:");
         String input = sc.next();
         List<CoffeeProduct> list = c.getAllProducts();
@@ -77,16 +98,23 @@ class CommandCollectProduct implements CoffeeCommand {
 
         }
         System.out.println("Please input a valid Product ID");
-        execute(sc, c);
+        execute();
     }
 }
 
 class CommandShipProduct implements CoffeeCommand {
-    private String key="s";
-    public String getKey(){
-        return this.key;
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandShipProduct(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
     }
-    public void execute(Scanner sc, CoffeeShop c) {
+    public String name(){
+        return this.name;
+    }
+    public void execute() {
         System.out.println("Enter Product ID:");
         String input = sc.next();
         List<CoffeeProduct> list = c.getAllProducts();
@@ -101,6 +129,51 @@ class CommandShipProduct implements CoffeeCommand {
 
         }
         System.out.println("Please input a valid Product ID");
-        execute(sc, c);
+        execute();
+    }
+}
+
+class CommandUndo implements CoffeeCommand{
+    /**@attr*/
+    private String name;
+    /**@constructor*/
+    public String name(){
+        return this.name;
+    }
+    public void execute(){
+        
+    }
+}
+
+class CommandRedo implements CoffeeCommand{
+    /**@attr*/
+    /**@constructor*/
+    public String name(){
+        return "";
+    }
+    public void execute(){
+        
+    }
+}
+
+class CommandURList implements CoffeeCommand{
+    /**@attr*/
+    /**@constructor*/
+    public String name(){
+        return "";
+    }
+    public void execute(){
+        
+    }
+}
+
+class CommandExit implements CoffeeCommand{
+    /**@attr*/
+    /**@constructor*/
+    public String name(){
+        return "";
+    }
+    public void execute(){
+        
     }
 }
