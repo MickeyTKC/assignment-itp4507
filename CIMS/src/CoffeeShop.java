@@ -61,8 +61,15 @@ public class CoffeeShop {
 class Memento {
     private CoffeeShop cs;
     private List<CoffeeProduct> p;
+    private String action;
     public Memento(CoffeeShop cs) {
-       this.p = cs.clone().getAllProducts();
+       this.cs = cs;
+       this.p = this.cs.clone().getAllProducts();
+    }
+     public Memento(CoffeeShop cs,String action) {
+       this.cs = cs;
+       this.p = this.cs.clone().getAllProducts();
+       this.action = action;
     }
     public void restore() {
         cs.setProducts(p);
