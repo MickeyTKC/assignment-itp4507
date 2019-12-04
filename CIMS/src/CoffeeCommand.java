@@ -10,10 +10,12 @@ class CommandAddProduct implements CoffeeCommand {
     private String name;
     private Scanner sc;
     private CoffeeShop c;
-    public CommandAddProduct(String commandName,Scanner sc,CoffeeShop c){
+    private Caretaker r;
+    public CommandAddProduct(String commandName,Scanner sc,CoffeeShop c,Caretaker r){
         this.name = commandName;
         this.sc = sc;
         this.c = c;
+        this.r=r;
     }
     public String name(){
         return this.name;
@@ -25,11 +27,13 @@ class CommandAddProduct implements CoffeeCommand {
             String choice = sc.next();
             for (CoffeeProductFactory f : cpf) {
                 if (f.getFactoryKey().equals(choice)) {
-                c.addPorduct(f.createProduct(sc));
-                return;
+                    CoffeeProduct p = f.createProduct(sc);
+                    c.addPorduct(p);
+                    r.save(c, "Add: "+p.toString());
+                    return;
                 }
             }
-            System.out.println("Please input a valid values");
+            System.out.println("Please input a valid Coffee type");
             execute();
         }
         catch(Exception e){
@@ -75,22 +79,26 @@ class CommandCollectProduct implements CoffeeCommand {
     private String name;
     private Scanner sc;
     private CoffeeShop c;
-    public CommandCollectProduct(String commandName,Scanner sc,CoffeeShop c){
+    private Caretaker r;
+    public CommandCollectProduct(String commandName,Scanner sc,CoffeeShop c,Caretaker r){
         this.name = commandName;
         this.sc = sc;
         this.c = c;
+        this.r=r;
     }
     public String name(){
         return this.name;
     }
     public void execute() {
         System.out.println("Enter Product ID:");
-        String input = sc.next();
+        int id = sc.nextInt();
         List<CoffeeProduct> list = c.getAllProducts();
         try {
-            CoffeeProduct p = c.getProductByID(Integer.valueOf(input));
+            CoffeeProduct p = c.getProductByID(id);
             System.out.println("Quantity to deposit:");
-            p.setQty(p.getQty()+Integer.valueOf(sc.next()));
+            int qty = sc.nextInt();
+            p.setQty(p.getQty()+qty);
+            r.save(c, "Received: "+qty+p.getName()+" ("+p.getProductID()+")");
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
@@ -106,10 +114,12 @@ class CommandShipProduct implements CoffeeCommand {
     private String name;
     private Scanner sc;
     private CoffeeShop c;
-    public CommandShipProduct(String commandName,Scanner sc,CoffeeShop c){
+    private Caretaker r;
+    public CommandShipProduct(String commandName,Scanner sc,CoffeeShop c,Caretaker r){
         this.name = commandName;
         this.sc = sc;
         this.c = c;
+        this.r=r;
     }
     public String name(){
         return this.name;
@@ -121,7 +131,9 @@ class CommandShipProduct implements CoffeeCommand {
         try {
             CoffeeProduct p = c.getProductByID(Integer.valueOf(input));
             System.out.println("Quantity to ship:");
-            p.setQty(p.getQty()-Integer.valueOf(sc.next()));
+            int qty = sc.nextInt();
+            p.setQty(p.getQty()-qty);
+            r.save(c, "Shipped: "+qty+p.getName()+" ("+p.getProductID()+")");
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
@@ -136,62 +148,70 @@ class CommandShipProduct implements CoffeeCommand {
 class CommandUndo implements CoffeeCommand{
     private String name;
     private Scanner sc;
-    private CoffeeShop c;
-    public CommandUndo(String commandName,Scanner sc,CoffeeShop c){
+    private Caretaker r;
+    public CommandUndo(String commandName,Scanner sc,Caretaker r){
         this.name = commandName;
         this.sc = sc;
-        this.c = c;
+        this.r = r;
     }
     public String name(){
         return this.name;
     }
     public void execute(){
-        
+        if(r.undo()){
+            System.out.println("Perform undo");
+        }
+        else{
+            System.out.println("Nothing to undo.");
+        }
     }
 }
 
 class CommandRedo implements CoffeeCommand{
     private String name;
     private Scanner sc;
-    private CoffeeShop c;
-    public CommandRedo(String commandName,Scanner sc,CoffeeShop c){
+    private Caretaker r;
+    public CommandRedo(String commandName,Scanner sc,Caretaker r){
         this.name = commandName;
         this.sc = sc;
-        this.c = c;
+        this.r = r;
     }
     public String name(){
         return this.name;
     }
     public void execute(){
-        
+        if(r.redo()){
+            System.out.println("Perform redo");
+        }
+        else{
+            System.out.println("Nothing to redo.");
+        }
     }
 }
 
 class CommandURList implements CoffeeCommand{
     private String name;
     private Scanner sc;
-    private CoffeeShop c;
-    public CommandURList(String commandName,Scanner sc,CoffeeShop c){
+    private Caretaker r;
+    public CommandURList(String commandName,Scanner sc,Caretaker r){
         this.name = commandName;
         this.sc = sc;
-        this.c = c;
+        this.r = r;
     }
     public String name(){
         return this.name;
     }
     public void execute(){
-        
+        System.out.println(r.records());
     }
 }
 
 class CommandExit implements CoffeeCommand{
     private String name;
     private Scanner sc;
-    private CoffeeShop c;
-    public CommandExit(String commandName,Scanner sc,CoffeeShop c){
+    public CommandExit(String commandName,Scanner sc){
         this.name = commandName;
         this.sc = sc;
-        this.c = c;
     }
     public String name(){
         return this.name;
