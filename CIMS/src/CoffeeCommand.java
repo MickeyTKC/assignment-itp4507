@@ -23,7 +23,8 @@ class CommandAddProduct implements CoffeeCommand {
                 if (f.name().equals(choice)) {
                     CoffeeProduct p = f.createProduct(sc);
                     c.addPorduct(p);
-                    r.save(c, "Add: "+p.toString());
+                    r.save(c, "Add "+p.getProductID()+" "+p.getName());
+                    System.out.println("New product record created.");
                     return;
                 }
             }
@@ -80,7 +81,8 @@ class CommandCollectProduct implements CoffeeCommand {
             System.out.println("Quantity to deposit:");
             int qty = sc.nextInt();
             p.setQty(p.getQty()+qty);
-            r.save(c, "Received: "+qty+p.getName()+" ("+p.getProductID()+")");
+            r.save(c, "Received "+qty+p.getName()+" ("+p.getProductID()+")");
+            System.out.println("Received "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
@@ -109,7 +111,8 @@ class CommandShipProduct implements CoffeeCommand {
             System.out.println("Quantity to ship:");
             int qty = sc.nextInt();
             p.setQty(p.getQty()-qty);
-            r.save(c, "Shipped: "+qty+p.getName()+" ("+p.getProductID()+")");
+            r.save(c, "Shipped "+qty+p.getName()+" ("+p.getProductID()+")");
+            System.out.println("Shipped "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
