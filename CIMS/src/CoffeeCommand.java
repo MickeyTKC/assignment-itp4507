@@ -81,7 +81,7 @@ class CommandCollectProduct implements CoffeeCommand {
             System.out.println("Quantity to deposit:");
             int qty = sc.nextInt();
             p.setQty(p.getQty()+qty);
-            r.save(c, "Received "+qty+p.getName()+" ("+p.getProductID()+")");
+            r.save(c, "Received "+qty+" "+p.getName()+" ("+p.getProductID()+")");
             System.out.println("Received "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
             return;
         } catch (NumberFormatException e) {
@@ -111,7 +111,7 @@ class CommandShipProduct implements CoffeeCommand {
             System.out.println("Quantity to ship:");
             int qty = sc.nextInt();
             p.setQty(p.getQty()-qty);
-            r.save(c, "Shipped "+qty+p.getName()+" ("+p.getProductID()+")");
+            r.save(c, "Shipped "+qty+" "+p.getName()+" ("+p.getProductID()+")");
             System.out.println("Shipped "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
             return;
         } catch (NumberFormatException e) {
