@@ -134,9 +134,14 @@ class CommandShipProduct implements CoffeeCommand {
 }
 
 class CommandUndo implements CoffeeCommand{
-    /**@attr*/
     private String name;
-    /**@constructor*/
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandUndo(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
+    }
     public String name(){
         return this.name;
     }
@@ -146,10 +151,16 @@ class CommandUndo implements CoffeeCommand{
 }
 
 class CommandRedo implements CoffeeCommand{
-    /**@attr*/
-    /**@constructor*/
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandRedo(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
+    }
     public String name(){
-        return "";
+        return this.name;
     }
     public void execute(){
         
@@ -157,10 +168,16 @@ class CommandRedo implements CoffeeCommand{
 }
 
 class CommandURList implements CoffeeCommand{
-    /**@attr*/
-    /**@constructor*/
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandURList(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
+    }
     public String name(){
-        return "";
+        return this.name;
     }
     public void execute(){
         
@@ -168,12 +185,22 @@ class CommandURList implements CoffeeCommand{
 }
 
 class CommandExit implements CoffeeCommand{
-    /**@attr*/
-    /**@constructor*/
+    private String name;
+    private Scanner sc;
+    private CoffeeShop c;
+    public CommandExit(String commandName,Scanner sc,CoffeeShop c){
+        this.name = commandName;
+        this.sc = sc;
+        this.c = c;
+    }
     public String name(){
-        return "";
+        return this.name;
     }
     public void execute(){
-        
+        System.out.println("Exit System ? (Y/N)");
+        String input = sc.next();
+        if(input.toUpperCase().equals("Y")){
+            System.exit(1);
+        }
     }
 }
