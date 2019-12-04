@@ -74,4 +74,7 @@ class Memento {
     public void restore() {
         cs.setProducts(p);
     }
+    public String getAction(){
+        return this.action;
+    }
 }
