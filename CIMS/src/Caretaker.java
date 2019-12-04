@@ -10,9 +10,9 @@ public class Caretaker {
         undoList = new Stack<Memento>();
         redoList = new Stack<Memento>();
     }
-
-    public void saveMyClass(CoffeeShop sc) {
-        Memento amemento = new Memento(sc);
+    
+    public void save(CoffeeShop sc,String action) {
+        Memento amemento = new Memento(sc,action);
         if (!redoList.empty()) {
             if (!amemento.equals(redoList.get(redoList.size() - 1))) {
                 redoList.clear();
@@ -46,5 +46,9 @@ public class Caretaker {
             System.out.println("Nothing to redo.");
             return false;
         }
+    }
+    
+    public String records(){
+        return "";
     }
 }
