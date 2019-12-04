@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Caretaker {
 
-    public Stack<Memento> undoList;
-    public Stack<Memento> redoList;
+    private Stack<Memento> undoList;
+    private Stack<Memento> redoList;
 
     public Caretaker() {
         undoList = new Stack<Memento>();
