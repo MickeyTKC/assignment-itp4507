@@ -46,17 +46,23 @@ public class Caretaker {
 
     public String records() {
         String s = "";
+        s+="Undo List: \n";
         if (!undoList.empty()) {
-            s+="Undo List:\n";
             for (int i = 1; i < undoList.size(); i++) {
                 s+=undoList.get(i).getAction()+"\n";
             }
         }
+        else{
+            s+="Empty";
+        }
+        s+="\nRedo List: \n";
         if (!redoList.empty()) {
-            s+="Redo List:\n";
             for (int i = 0; i < redoList.size(); i++) {
                 s+=redoList.get(i).getAction()+"\n";
             }
+        }
+        else{
+            s+="Empty";
         }
         return s;
     }

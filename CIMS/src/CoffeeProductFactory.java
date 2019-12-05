@@ -10,9 +10,9 @@ class CandyFactory implements CoffeeProductFactory {
     private final String name = "cc";
     public CoffeeProduct createProduct(Scanner sc) {
         String[] values;
-        System.out.println("Enter product Id, name, number of candy and calories per candy:");
+        System.out.println("Enter product id, name, number of candy and calories per candy: ");
         try {
-            values = sc.next().split(",");
+            values = sc.nextLine().split(", ");
             if (values.length == 4) {
                 return new Candy(
                         Integer.valueOf(values[0]),
@@ -39,9 +39,9 @@ class PowderFactory implements CoffeeProductFactory {
     private final String name = "cp";
     public CoffeeProduct createProduct(Scanner sc) {
         String[] values;
-        System.out.println("Enter product Id , name and weight(g):");
+        System.out.println("Enter product id, name and weight(g): ");
         try {
-            values = sc.next().split(",");
+            values = sc.nextLine().split(", ");
             if (values.length == 3) {
                 return new Powder(
                         Integer.valueOf(values[0]),

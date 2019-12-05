@@ -17,8 +17,8 @@ class CommandAddProduct implements CoffeeCommand {
     public void execute() {
         try{
             CoffeeProductFactory[] cpf = {new CandyFactory(), new PowderFactory()};
-            System.out.println("Enter Coffee type (cc=Coffee Candy/cp=Coffee Powder):");
-            String choice = sc.next();
+            System.out.println("\nEnter Coffee type (cc=Coffee Candy/cp=Coffee Powder): ");
+            String choice = sc.nextLine();
             for (CoffeeProductFactory f : cpf) {
                 if (f.name().equals(choice)) {
                     CoffeeProduct p = f.createProduct(sc);
@@ -44,17 +44,22 @@ class CommandViewProduct implements CoffeeCommand {
         this.c = c;
     }
     public void execute() {
-        System.out.println("Enter product Id. (* to show all):");
-        String input = sc.next();
+        System.out.println("Enter product id (* to show all):");
+        String input = sc.nextLine();
         List<CoffeeProduct> list = c.getAllProducts();
         if (input.equals("*")) {
-            for (CoffeeProduct p : list) {
+            if(list.isEmpty()){
+                System.out.println("It is empty.");
+            }else{
+                System.out.println("\nCoffee Product information\nID			Name				Quantity		Other Info");
+                for (CoffeeProduct p : list) {
                 System.out.println(p);
+                }
             }
         } else {
             for (CoffeeProduct p : list) {
                 if (p.getProductID() == Integer.valueOf(input)) {
-                    System.out.println(p);
+                    System.out.println("Product information\n"+p.details());
                     return;
                 }
             }
@@ -73,12 +78,12 @@ class CommandCollectProduct implements CoffeeCommand {
         this.r=r;
     }
     public void execute() {
-        System.out.println("Enter Product ID:");
+        System.out.println("Enter product id:");
         int id = sc.nextInt();
         List<CoffeeProduct> list = c.getAllProducts();
         try {
             CoffeeProduct p = c.getProductByID(id);
-            System.out.println("Quantity to deposit:");
+            System.out.println("Quantity to receive:");
             int qty = sc.nextInt();
             p.setQty(p.getQty()+qty);
             r.save(c, "Received "+qty+" "+p.getName()+" ("+p.getProductID()+")");
@@ -103,16 +108,20 @@ class CommandShipProduct implements CoffeeCommand {
         this.r=r;
     }
     public void execute() {
-        System.out.println("Enter Product ID:");
-        String input = sc.next();
+        System.out.println("Enter product id:");
+        String input = sc.nextLine();
         List<CoffeeProduct> list = c.getAllProducts();
         try {
             CoffeeProduct p = c.getProductByID(Integer.valueOf(input));
             System.out.println("Quantity to ship:");
             int qty = sc.nextInt();
-            p.setQty(p.getQty()-qty);
-            r.save(c, "Shipped "+qty+" "+p.getName()+" ("+p.getProductID()+")");
-            System.out.println("Shipped "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
+            if(qty <= p.getQty()){
+                p.setQty(p.getQty()-qty);
+                r.save(c, "Shipped "+qty+" "+p.getName()+" ("+p.getProductID()+")");
+                System.out.println("Shipped "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
+            }else{
+                System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!!");
+            }
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");

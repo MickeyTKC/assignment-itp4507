@@ -20,11 +20,12 @@ public class Assignment {
         while (true) {
             System.out.println(shop.getTitle());
             System.out.println("Please enter command: [a | v | c | s | u | r | sl | x]");
-            System.out.println("a = add product, v = view products, c = collect product, s = ship product,\nu = undo, r = redo, sl = show list undo/redo, x = exit system");
-            String input = sc.next();
+            System.out.println("a = add product,  v = view products,  c = collect product,  s = ship product, \nu = undo,  r = redo,  sl = show list undo/redo,  x = exit system\n");
+            String input = sc.nextLine();
             for (CoffeeCommandFactory cf : coffeeCommand) {
                 if (cf.name().equals(input)) {
                     cf.create().execute();
+                    System.out.println("");
                     break;
                 }
             }

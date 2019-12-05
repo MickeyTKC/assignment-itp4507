@@ -34,6 +34,9 @@ public class CoffeeProduct {
         temp.setQty(this.qty);
         return temp;
     }
+    public String details(){
+        return "ID: " + getProductID() +"\nName: " + getName() + "\nQuantity: " + getQty();
+    }
 }
 
 class Candy extends CoffeeProduct {
@@ -68,6 +71,9 @@ class Candy extends CoffeeProduct {
         temp.setQty(this.getQty());
         return temp;
     }
+    public String details() {
+        return super.details() + "\nNumber of candies per package: " + getNoOfCandy()+ "\nCalories Per candy: " + getCaloriesPerCandy();
+    }
 }
 
 class Powder extends CoffeeProduct{
@@ -93,5 +99,8 @@ class Powder extends CoffeeProduct{
         CoffeeProduct temp = new Powder(this.getProductID(),this.getName(),this.getWeight());
         temp.setQty(this.getQty());
         return temp;
+    }
+    public String details() {
+        return super.details() + "\nWeight: " + getWeight();
     }
 }
