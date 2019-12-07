@@ -29,11 +29,6 @@ public class CoffeeProduct {
     public void setQty(int qty) {
         this.qty = qty;
     }
-    public CoffeeProduct clone(){
-        CoffeeProduct temp = new CoffeeProduct(this.name,this.productID);
-        temp.setQty(this.qty);
-        return temp;
-    }
     public String details(){
         return "ID: " + getProductID() +"\nName: " + getName() + "\nQuantity: " + getQty();
     }
@@ -65,12 +60,6 @@ class CoffeeCandy extends CoffeeProduct {
     public void setCaloriesPerCandy(int caloriesPerCandy) {
         this.caloriesPerCandy = caloriesPerCandy;
     }
-    @Override
-    public CoffeeProduct clone(){
-        CoffeeProduct temp = new CoffeeCandy(this.getProductID(),this.getName(),this.getNoOfCandy(),this.getCaloriesPerCandy());
-        temp.setQty(this.getQty());
-        return temp;
-    }
     public String details() {
         return super.details() + "\nNumber of candies per package: " + getNoOfCandy()+ "\nCalories Per candy: " + getCaloriesPerCandy();
     }
@@ -82,11 +71,6 @@ class CoffeePowder extends CoffeeProduct{
     public CoffeePowder(int productID,String name,double weight) {
         super(name, productID);
         this.weight = weight;
-    }
-
-    @Override
-    public String toString(){
-        return super.toString()+"\t"+this.weight+"g";
     }
     public double getWeight() {
         return weight;
