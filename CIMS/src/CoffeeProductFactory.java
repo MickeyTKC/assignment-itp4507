@@ -14,7 +14,7 @@ class CandyFactory implements CoffeeProductFactory {
         try {
             values = sc.nextLine().split(", ");
             if (values.length == 4) {
-                return new Candy(
+                return new CoffeeCandy(
                         Integer.valueOf(values[0]),
                         values[1],
                         Integer.valueOf(values[2]),
@@ -43,7 +43,7 @@ class PowderFactory implements CoffeeProductFactory {
         try {
             values = sc.nextLine().split(", ");
             if (values.length == 3) {
-                return new Powder(
+                return new CoffeePowder(
                         Integer.valueOf(values[0]),
                         values[1],
                         Integer.valueOf(values[2])

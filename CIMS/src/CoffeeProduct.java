@@ -39,11 +39,11 @@ public class CoffeeProduct {
     }
 }
 
-class Candy extends CoffeeProduct {
+class CoffeeCandy extends CoffeeProduct {
     private int noOfCandy;
     private int caloriesPerCandy;
 
-    public Candy(int productID,String name, int noOfCandy, int caloriesPerCandy) {
+    public CoffeeCandy(int productID,String name, int noOfCandy, int caloriesPerCandy) {
         super(name, productID);
         this.noOfCandy = noOfCandy;
         this.caloriesPerCandy = caloriesPerCandy;
@@ -67,7 +67,7 @@ class Candy extends CoffeeProduct {
     }
     @Override
     public CoffeeProduct clone(){
-        CoffeeProduct temp = new Candy(this.getProductID(),this.getName(),this.getNoOfCandy(),this.getCaloriesPerCandy());
+        CoffeeProduct temp = new CoffeeCandy(this.getProductID(),this.getName(),this.getNoOfCandy(),this.getCaloriesPerCandy());
         temp.setQty(this.getQty());
         return temp;
     }
@@ -76,10 +76,10 @@ class Candy extends CoffeeProduct {
     }
 }
 
-class Powder extends CoffeeProduct{
-    private int weight;
+class CoffeePowder extends CoffeeProduct{
+    private double weight;
 
-    public Powder(int productID,String name,int weight) {
+    public CoffeePowder(int productID,String name,double weight) {
         super(name, productID);
         this.weight = weight;
     }
@@ -88,7 +88,7 @@ class Powder extends CoffeeProduct{
     public String toString(){
         return super.toString()+"\t"+this.weight+"g";
     }
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
     public void setWeight(int weight) {
@@ -96,7 +96,7 @@ class Powder extends CoffeeProduct{
     }
     @Override
     public CoffeeProduct clone(){
-        CoffeeProduct temp = new Powder(this.getProductID(),this.getName(),this.getWeight());
+        CoffeeProduct temp = new CoffeePowder(this.getProductID(),this.getName(),this.getWeight());
         temp.setQty(this.getQty());
         return temp;
     }

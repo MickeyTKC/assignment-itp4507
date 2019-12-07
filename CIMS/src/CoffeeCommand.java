@@ -92,7 +92,7 @@ class CommandCollectProduct implements CoffeeCommand {
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
         } catch (Exception e) {
-
+            
         }
         System.out.println("Please input a valid Product ID");
     }
