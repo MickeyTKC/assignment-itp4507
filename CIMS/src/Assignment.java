@@ -16,7 +16,6 @@ public class Assignment {
             new RedoFactory("r", sc, record),
             new URListFactory("sl", sc, record),
             new ExitFactory("x"),};
-        record.save(shop, "Create Coffee Shop");
         while (true) {
             System.out.println(shop.getTitle());
             System.out.println("Please enter command: [a | v | c | s | u | r | sl | x]");

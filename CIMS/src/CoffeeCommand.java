@@ -2,64 +2,70 @@
 import java.util.*;
 
 public interface CoffeeCommand {
+
     public abstract void execute();
 }
 
 class CommandAddProduct implements CoffeeCommand {
+
     private Scanner sc;
     private CoffeeShop c;
     private Caretaker r;
-    public CommandAddProduct(Scanner sc,CoffeeShop c,Caretaker r){
+
+    public CommandAddProduct(Scanner sc, CoffeeShop c, Caretaker r) {
         this.sc = sc;
         this.c = c;
-        this.r=r;
+        this.r = r;
     }
+
     public void execute() {
-        try{
+        try {
             CoffeeProductFactory[] cpf = {new CandyFactory(), new PowderFactory()};
             System.out.println("\nEnter Coffee type (cc=Coffee Candy/cp=Coffee Powder): ");
             String choice = sc.nextLine();
             for (CoffeeProductFactory f : cpf) {
                 if (f.name().equals(choice)) {
                     CoffeeProduct p = f.createProduct(sc);
+                    r.save(p, "Add " + p.getProductID() + " " + p.getName());
                     c.addPorduct(p);
-                    r.save(c, "Add "+p.getProductID()+" "+p.getName());
                     System.out.println("New product record created.");
                     return;
                 }
             }
             System.out.println("Please input a valid Coffee type");
-        }
-        catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
 }
 
 class CommandViewProduct implements CoffeeCommand {
+
     private Scanner sc;
     private CoffeeShop c;
-    public CommandViewProduct(Scanner sc,CoffeeShop c){
+
+    public CommandViewProduct(Scanner sc, CoffeeShop c) {
         this.sc = sc;
         this.c = c;
     }
+
     public void execute() {
         System.out.println("Enter product id (* to show all):");
         String input = sc.nextLine();
         List<CoffeeProduct> list = c.getAllProducts();
         if (input.equals("*")) {
-            if(list.isEmpty()){
+            if (list.isEmpty()) {
                 System.out.println("It is empty.");
-            }else{
+            } else {
                 System.out.println("\nCoffee Product information\nID			Name				Quantity		Other Info");
                 for (CoffeeProduct p : list) {
-                System.out.println(p);
+                    System.out.println(p);
                 }
             }
         } else {
             for (CoffeeProduct p : list) {
                 if (p.getProductID() == Integer.valueOf(input)) {
-                    System.out.println("Product information\n"+p.details());
+                    System.out.println("Product information\n" + p.details());
                     return;
                 }
             }
@@ -69,14 +75,17 @@ class CommandViewProduct implements CoffeeCommand {
 }
 
 class CommandCollectProduct implements CoffeeCommand {
+
     private Scanner sc;
     private CoffeeShop c;
     private Caretaker r;
-    public CommandCollectProduct(Scanner sc,CoffeeShop c,Caretaker r){
+
+    public CommandCollectProduct(Scanner sc, CoffeeShop c, Caretaker r) {
         this.sc = sc;
         this.c = c;
-        this.r=r;
+        this.r = r;
     }
+
     public void execute() {
         System.out.println("Enter product id:");
         int id = sc.nextInt();
@@ -85,28 +94,31 @@ class CommandCollectProduct implements CoffeeCommand {
             CoffeeProduct p = c.getProductByID(id);
             System.out.println("Quantity to receive:");
             int qty = sc.nextInt();
-            p.setQty(p.getQty()+qty);
-            r.save(c, "Received "+qty+" "+p.getName()+" ("+p.getProductID()+")");
-            System.out.println("Received "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
+             r.save(p, "Received " + qty + " " + p.getName() + " (" + p.getProductID() + ")");
+            p.setQty(p.getQty() + qty);
+            System.out.println("Received " + qty + " packs of " + p.getName() + ". Current quantity is " + p.getQty() + ".");
             return;
         } catch (NumberFormatException e) {
             System.out.println("It is a invalid value !");
         } catch (Exception e) {
-            
+
         }
         System.out.println("Please input a valid Product ID");
     }
 }
 
 class CommandShipProduct implements CoffeeCommand {
+
     private Scanner sc;
     private CoffeeShop c;
     private Caretaker r;
-    public CommandShipProduct(Scanner sc,CoffeeShop c,Caretaker r){
+
+    public CommandShipProduct(Scanner sc, CoffeeShop c, Caretaker r) {
         this.sc = sc;
         this.c = c;
-        this.r=r;
+        this.r = r;
     }
+
     public void execute() {
         System.out.println("Enter product id:");
         String input = sc.nextLine();
@@ -115,11 +127,11 @@ class CommandShipProduct implements CoffeeCommand {
             CoffeeProduct p = c.getProductByID(Integer.valueOf(input));
             System.out.println("Quantity to ship:");
             int qty = sc.nextInt();
-            if(qty <= p.getQty()){
-                p.setQty(p.getQty()-qty);
-                r.save(c, "Shipped "+qty+" "+p.getName()+" ("+p.getProductID()+")");
-                System.out.println("Shipped "+qty+" packs of "+p.getName()+". Current quantity is "+p.getQty()+".");
-            }else{
+            if (qty <= p.getQty()) {
+                r.save(p, "Shipped "+qty+" "+p.getName()+" ("+p.getProductID()+")");
+                p.setQty(p.getQty() - qty);
+                System.out.println("Shipped " + qty + " packs of " + p.getName() + ". Current quantity is " + p.getQty() + ".");
+            } else {
                 System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!!");
             }
             return;
@@ -132,54 +144,54 @@ class CommandShipProduct implements CoffeeCommand {
     }
 }
 
-class CommandUndo implements CoffeeCommand{
+class CommandUndo implements CoffeeCommand {
+
     private Scanner sc;
     private Caretaker r;
-    public CommandUndo(Scanner sc,Caretaker r){
+
+    public CommandUndo(Scanner sc, Caretaker r) {
         this.sc = sc;
         this.r = r;
     }
-    public void execute(){
-        if(r.undo()){
-            System.out.println("undo completed.");
-        }
-        else{
-            System.out.println("Nothing to undo.");
-        }
+
+    public void execute() {
+        r.undo();
     }
 }
 
-class CommandRedo implements CoffeeCommand{
+class CommandRedo implements CoffeeCommand {
+
     private Scanner sc;
     private Caretaker r;
-    public CommandRedo(Scanner sc,Caretaker r){
+
+    public CommandRedo(Scanner sc, Caretaker r) {
         this.sc = sc;
         this.r = r;
     }
-    public void execute(){
-        if(r.redo()){
-            System.out.println("redo completed.");
-        }
-        else{
-            System.out.println("Nothing to redo.");
-        }
+
+    public void execute() {
+        r.redo();
     }
 }
 
-class CommandURList implements CoffeeCommand{
+class CommandURList implements CoffeeCommand {
+
     private Scanner sc;
     private Caretaker r;
-    public CommandURList(Scanner sc,Caretaker r){
+
+    public CommandURList(Scanner sc, Caretaker r) {
         this.sc = sc;
         this.r = r;
     }
-    public void execute(){
+
+    public void execute() {
         System.out.println(r.records());
     }
 }
 
-class CommandExit implements CoffeeCommand{
-    public void execute(){
+class CommandExit implements CoffeeCommand {
+
+    public void execute() {
         System.out.println("Thanks for using Coffee Inventory Management System!!");
         System.exit(1);
     }

@@ -38,43 +38,28 @@ public class CoffeeShop {
         }
         return null;
     }
-    public void setProducts(List<CoffeeProduct> product){
-        this.products = product;
-    }
-    public void collectProduct(int productID,int qty){
-        CoffeeProduct p =  getProductByID(productID);
-        p.setQty(p.getProductID()+qty);
-    }
-    public void shipProduct(int productID,int qty){
-        CoffeeProduct p =  getProductByID(productID);
-        p.setQty(p.getProductID()-qty);
-    }
-    public CoffeeShop clone(){
-        CoffeeShop temp = new CoffeeShop(this.title);
-        for(CoffeeProduct p : this.getAllProducts()){
-            temp.addPorduct(p.clone());
-        }
-        return temp;
-    }
 }
 
 class Memento {
-    private CoffeeShop cs;
-    private List<CoffeeProduct> p;
+    private CoffeeProduct p;
+    private int qty;
     private String action;
-    public Memento(CoffeeShop cs) {
-       this.cs = cs;
-       this.p = this.cs.clone().getAllProducts();
+    public Memento(CoffeeProduct p) {
+       this.p = p;
+       this.qty = p.getQty();
     }
-     public Memento(CoffeeShop cs,String action) {
-       this.cs = cs;
-       this.p = this.cs.clone().getAllProducts();
+    public Memento(CoffeeProduct p,String action) {
+       this.p = p;
+       this.qty = p.getQty();
        this.action = action;
     }
     public void restore() {
-        cs.setProducts(p);
+        p.setQty(this.qty);
     }
     public String getAction(){
         return this.action;
+    }
+    public CoffeeProduct getProduct(){
+        return p;
     }
 }
